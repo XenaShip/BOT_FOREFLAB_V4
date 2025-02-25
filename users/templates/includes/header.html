@@ -1,4 +1,4 @@
-<!-- users/includes/header.html -->
+<!-- templates/includes/header.html -->
 <header style="background-color: #333; color: #fff; padding: 20px 0; text-align: center;">
     <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
         <!-- Логотип или название сайта -->
@@ -6,15 +6,23 @@
 
         <!-- Меню для авторизованных и неавторизованных пользователей -->
         <nav>
-           <!-- {% if user.is_authenticated %}-->
+            {% if user.is_authenticated %}
                 <!-- Меню для авторизованных пользователей -->
                 <ul style="list-style: none; margin: 0; padding: 0; display: flex; gap: 20px;">
-
+                    <li><a href="{% url 'users:user_list' %}" style="color: #fff; text-decoration: none;">Пользователи</a></li>
+                    <li><a href="{% url 'main:client_list' %}" style="color: #fff; text-decoration: none;">Клиенты</a></li>
+                    <li><a href="{% url 'main:index' %}" style="color: #fff; text-decoration: none;">Опросы</a></li>
+                    <li>
+                        <form action="{% url 'users:logout' %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" style="background: none; border: none; color: #fff; cursor: pointer; font-size: 16px;">Выйти</button>
+                        </form>
+                    </li>
                 </ul>
-            <!--{% else %} -->
-               <!-- Кнопка для неавторизованных пользователей -->
-               <!-- <a href="{% url 'login' %}" style="color: #fff; text-decoration: none; background-color: #ffcc00; padding: 10px 20px; border-radius: 5px;">Войти</a> -->
-            <!--{% endif %} -->
+            {% else %}
+                <!-- Кнопка для неавторизованных пользователей -->
+                <a href="{% url 'users:login' %}" style="color: #fff; text-decoration: none; background-color: #ffcc00; padding: 10px 20px; border-radius: 5px;">Войти</a>
+            {% endif %}
         </nav>
     </div>
 </header>

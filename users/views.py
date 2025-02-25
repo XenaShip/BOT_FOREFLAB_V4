@@ -1,3 +1,6 @@
+from django.contrib.auth import logout
+from django.contrib.auth.views import LogoutView, LoginView
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from .models import User
@@ -29,4 +32,11 @@ class UserDeleteView(generic.DeleteView):
 class UserListView(generic.ListView):
     model = User
     template_name = 'users/user_list.html'
-    context_object_name = 'object_list'  # Список пользователей будет доступен в шаблоне как object_list
+    context_object_name = 'object_list'
+    # Список пользователей будет доступен в шаблоне как object_list
+
+class MyLoginView(LoginView):
+    model = User
+    form_class = UserForm
+    template_name = 'users/login.html'
+    success_url = reverse_lazy('users:users')

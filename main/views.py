@@ -1,7 +1,10 @@
+from django.urls import reverse_lazy
 from django.views import generic
+from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 
-from .forms import SurveyForm
-from .models import Survey
+from .forms import SurveyForm, ClientForm
+from .models import Survey, Client
+
 
 class index(generic.ListView):
     model = Survey
@@ -50,4 +53,27 @@ class SurveyDeleteView(generic.DeleteView):
     template_name = 'main/survey_confirm_delete.html'
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
-    success_url = '/'  # Редирект на главную страницу после успешного удаления
+    success_url = '/'
+    # Редирект на главную страницу после успешного удаления
+
+class ClientCreateView(CreateView):
+    model = Client
+    form_class = ClientForm
+    template_name = 'main/client_create.html'
+    success_url = reverse_lazy('client_list')
+
+class ClientUpdateView(UpdateView):
+    model = Client
+    form_class = ClientForm
+    template_name = 'main/client_update.html'
+    success_url = reverse_lazy('client_list')
+
+class ClientDeleteView(DeleteView):
+    model = Client
+    template_name = 'main/client_confirm_delete.html'
+    success_url = reverse_lazy('client_list')
+
+class ClientListView(ListView):
+    model = Client
+    template_name = 'main/client_list.html'
+    context_object_name = 'object_list'

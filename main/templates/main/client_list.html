@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+    <h2>Список клиентов</h2>
+
+    <!-- Кнопка "Добавить клиента" -->
+    <a href="{% url 'main:client_create' %}" style="display: inline-block; background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-bottom: 20px;">
+        Добавить клиента
+    </a>
+
+    <!-- Таблица с клиентами -->
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <thead>
+            <tr style="background-color: #333; color: white;">
+                <th style="padding: 10px; text-align: left;">ФИО</th>
+                <th style="padding: 10px; text-align: left;">Telegram аккаунт</th>
+                <th style="padding: 10px; text-align: left;">Почта</th>
+                <th style="padding: 10px; text-align: left;">Номер телефона</th>
+                <th style="padding: 10px; text-align: left;">Telegram ID</th>
+                <th style="padding: 10px; text-align: left;">Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in object_list %}
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 10px;">{{ client.name }}</td>
+                    <td style="padding: 10px;">{{ client.acc_tg }}</td>
+                    <td style="padding: 10px;">{{ client.email }}</td>
+                    <td style="padding: 10px;">{{ client.phone }}</td>
+                    <td style="padding: 10px;">{{ client.tg_id|default:"Не указан" }}</td>
+                    <td style="padding: 10px;">
+                        <a href="{% url 'main:client_update' client.pk %}" style="color: #2196F3; text-decoration: none; margin-right: 10px;">Изменить</a>
+                        <a href="{% url 'main:client_confirm_delete' client.pk %}" style="color: #f44336; text-decoration: none;">Удалить</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6" style="padding: 10px; text-align: center;">Клиенты не найдены.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}ml>
