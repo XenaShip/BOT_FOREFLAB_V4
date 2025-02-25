@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <h2>Создать новый опрос</h2>
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- Поле: Название опроса -->
+        <div style="margin-bottom: 20px;">
+            <label for="{{ form.name.id_for_label }}">Название опроса:</label>
+            {{ form.name }}
+            {% if form.name.errors %}
+                <div style="color: red;">{{ form.name.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Поле: Slug -->
+        <div style="margin-bottom: 20px;">
+            <label for="{{ form.slug.id_for_label }}">Slug (уникальный идентификатор):</label>
+            {{ form.slug }}
+            {% if form.slug.errors %}
+                <div style="color: red;">{{ form.slug.errors }}</div>
+            {% endif %}
+            <small style="display: block; color: #666;">Только латинские буквы, цифры, дефисы и подчеркивания.</small>
+        </div>
+
+        <!-- Поле: Описание опроса -->
+        <div style="margin-bottom: 20px;">
+            <label for="{{ form.description.id_for_label }}">Описание опроса:</label>
+            {{ form.description }}
+            {% if form.description.errors %}
+                <div style="color: red;">{{ form.description.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Поле: Активность опроса -->
+        <div style="margin-bottom: 20px;">
+            <label for="{{ form.active.id_for_label }}">Активность опроса:</label>
+            {{ form.active }}
+            {% if form.active.errors %}
+                <div style="color: red;">{{ form.active.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Поле: Количество вопросов -->
+        <div style="margin-bottom: 20px;">
+            <label for="{{ form.counting.id_for_label }}">Количество вопросов:</label>
+            {{ form.counting }}
+            {% if form.counting.errors %}
+                <div style="color: red;">{{ form.counting.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Поле: Приветственный текст -->
+        <div style="margin-bottom: 20px;">
+            <label for="{{ form.hello_text.id_for_label }}">Приветственный текст:</label>
+            {{ form.hello_text }}
+            {% if form.hello_text.errors %}
+                <div style="color: red;">{{ form.hello_text.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Кнопки -->
+        <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+            Создать
+        </button>
+        <a href="{% url 'main:index' %}" style="background-color: #f44336; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-left: 10px;">
+            Отмена
+        </a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <h2>Детали опроса: {{ survey.name }}</h2>
+
+    <!-- Информация об опросе -->
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <tr>
+            <th style="padding: 10px; text-align: left; background-color: #333; color: white;">Название опроса</th>
+            <td style="padding: 10px;">{{ survey.name }}</td>
+        </tr>
+        <tr>
+            <th style="padding: 10px; text-align: left; background-color: #333; color: white;">Slug</th>
+            <td style="padding: 10px;">{{ survey.slug }}</td>
+        </tr>
+        <tr>
+            <th style="padding: 10px; text-align: left; background-color: #333; color: white;">Описание</th>
+            <td style="padding: 10px;">{{ survey.description }}</td>
+        </tr>
+        <tr>
+            <th style="padding: 10px; text-align: left; background-color: #333; color: white;">Активность</th>
+            <td style="padding: 10px;">
+                {% if survey.active %}
+                    <span style="color: green;">Активный</span>
+                {% else %}
+                    <span style="color: red;">Неактивный</span>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th style="padding: 10px; text-align: left; background-color: #333; color: white;">Количество вопросов</th>
+            <td style="padding: 10px;">{{ survey.counting|default:"Не указано" }}</td>
+        </tr>
+        <tr>
+            <th style="padding: 10px; text-align: left; background-color: #333; color: white;">Приветственный текст</th>
+            <td style="padding: 10px;">{{ survey.hello_text|default:"Не указан" }}</td>
+        </tr>
+    </table>
+
+    <!-- Кнопки действий -->
+    <div style="margin-top: 20px;">
+        <a href="{% url 'main:survey_form' survey.slug %}" style="background-color: #2196F3; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+            Изменить
+        </a>
+        <a href="{% url 'main:survey_confirm_delete' survey.slug %}" style="background-color: #f44336; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-left: 10px;">
+            Удалить
+        </a>
+        <a href="{% url 'main:index' %}" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-left: 10px;">
+            Назад
+        </a>
+    </div>
+</div>
+{% endblock %}

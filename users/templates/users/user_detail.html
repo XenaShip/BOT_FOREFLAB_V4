@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <h2>Информация об админе</h2>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <tr>
+            <th style="padding: 10px; text-align: left; background-color: #333; color: white;">Почта</th>
+            <td style="padding: 10px;">{{ user.email }}</td>
+        </tr>
+        <tr>
+            <th style="padding: 10px; text-align: left; background-color: #333; color: white;">Telegram Chat ID</th>
+            <td style="padding: 10px;">{{ user.tg_chat_id|default:"Не указан" }}</td>
+        </tr>
+    </table>
+    <div style="margin-top: 20px;">
+        <a href="{% url 'users:user_update' user.pk %}" style="background-color: #2196F3; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+            Изменить
+        </a>
+        <a href="{% url 'users:user_confirm_delete' user.pk %}" style="background-color: #f44336; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-left: 10px;">
+            Удалить
+        </a>
+    </div>
+</div>
+{% endblock %}
