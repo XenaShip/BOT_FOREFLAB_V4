@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <h2>Создать новый вопрос</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Поле: Номер вопроса -->
+        <div style="margin-bottom: 20px;">
+            <label for="{{ form.numb.id_for_label }}">Номер вопроса:</label>
+            {{ form.numb }}
+            {% if form.numb.errors %}
+                <div style="color: red;">{{ form.numb.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Поле: Текст вопроса -->
+        <div style="margin-bottom: 20px;">
+            <label for="{{ form.que_text.id_for_label }}">Текст вопроса:</label>
+            {{ form.que_text }}
+            {% if form.que_text.errors %}
+                <div style="color: red;">{{ form.que_text.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Поле: Тип вопроса -->
+        <div style="margin-bottom: 20px;">
+            <label for="{{ form.type_q.id_for_label }}">Тип вопроса:</label>
+            {{ form.type_q }}
+            {% if form.type_q.errors %}
+                <div style="color: red;">{{ form.type_q.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Поле: Ожидание ответа -->
+        <div style="margin-bottom: 20px;">
+            <label for="{{ form.wait_answer.id_for_label }}">Ожидание ответа:</label>
+            {{ form.wait_answer }}
+            {% if form.wait_answer.errors %}
+                <div style="color: red;">{{ form.wait_answer.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Поле: Файл -->
+        <div style="margin-bottom: 20px;">
+            <label for="{{ form.file.id_for_label }}">Файл:</label>
+            {{ form.file }}
+            {% if form.file.errors %}
+                <div style="color: red;">{{ form.file.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Поле: Тип файла -->
+        <div style="margin-bottom: 20px;">
+            <label for="{{ form.kind_file.id_for_label }}">Тип файла:</label>
+            {{ form.kind_file }}
+            {% if form.kind_file.errors %}
+                <div style="color: red;">{{ form.kind_file.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Кнопки -->
+        <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+            Создать
+        </button>
+        <a href="{% url 'main:survey_detail' survey_id %}" style="background-color: #f44336; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-left: 10px;">
+            Отмена
+        </a>
+    </form>
+</div>
+{% endblock %}

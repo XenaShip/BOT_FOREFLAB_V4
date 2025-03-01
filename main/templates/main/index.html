@@ -46,9 +46,9 @@
                         </td>
                         <td style="padding: 10px;">{{ survey.counting|default:"-" }}</td>
                         <td style="padding: 10px;">
-                            <a href="{% url 'main:survey_detail' survey.slug %}" style="color: #4CAF50; text-decoration: none; margin-right: 10px;">Посмотреть</a>
-                            <a href="{% url 'main:survey_form' survey.slug %}" style="color: #2196F3; text-decoration: none; margin-right: 10px;">Изменить</a>
-                            <a href="{% url 'main:survey_confirm_delete' survey.slug %}" style="color: #f44336; text-decoration: none;">Удалить</a>
+                            <a href="{% url 'main:survey_detail_slug' survey.slug %}" style="color: #4CAF50; text-decoration: none; margin-right: 10px;">Посмотреть</a>
+                            <a href="{% url 'main:survey_form' survey.pk %}" style="color: #2196F3; text-decoration: none; margin-right: 10px;">Изменить</a>
+                            <a href="{% url 'main:survey_confirm_delete' survey.pk %}" style="color: #f44336; text-decoration: none;">Удалить</a>
                         </td>
                     </tr>
                 {% empty %}

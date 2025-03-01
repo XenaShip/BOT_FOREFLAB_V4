@@ -1,5 +1,7 @@
 from django import forms
-from .models import Survey, Client
+from django.forms import inlineformset_factory, modelformset_factory
+
+from .models import Survey, Client, Question, Mark
 
 
 class SurveyForm(forms.ModelForm):
@@ -30,6 +32,7 @@ class SurveyForm(forms.ModelForm):
             'counting': 'Количество вопросов в опросе (необязательно).',
             'hello_text': 'Текст, который будет показан пользователю перед началом опроса (необязательно).',
         }
+SurveyFormSet = modelformset_factory(Survey, form=SurveyForm, extra=1)
 
 
 class ClientForm(forms.ModelForm):
@@ -57,3 +60,48 @@ class ClientForm(forms.ModelForm):
             'phone': 'Номер телефона в формате +7XXXXXXXXXX.',
             'tg_id': 'Уникальный идентификатор пользователя в Telegram.',
         }
+
+class MarkForm(forms.ModelForm):
+    class Meta:
+        model = Mark
+        fields = ['mark_text']
+        labels = {
+            'mark_text': 'Текст кнопки',
+        }
+
+
+class QuestionForm(forms.ModelForm):
+    class Meta:
+        model = Question
+        fields = ['numb', 'que_text', 'type_q', 'wait_answer', 'file', 'kind_file']
+        labels = {
+            'numb': 'Номер вопроса',
+            'que_text': 'Текст вопроса',
+            'type_q': 'Тип вопроса',
+            'wait_answer': 'Ожидание ответа',
+            'file': 'Файл',
+            'kind_file': 'Тип файла',
+        }
+        widgets = {
+            'numb': forms.NumberInput(attrs={'class': 'form-control'}),
+            'que_text': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'type_q': forms.Select(attrs={'class': 'form-control'}),
+            'wait_answer': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'file': forms.FileInput(attrs={'class': 'form-control'}),
+            'kind_file': forms.Select(attrs={'class': 'form-control'}),
+        }
+MarkFormSet = inlineformset_factory(
+    Question,  # Родительская модель
+    Mark,      # Дочерняя модель
+    form=MarkForm,  # Форма для дочерней модели
+    extra=1,  # Количество дополнительных пустых форм
+    can_delete=True,  # Разрешить удаление кнопок
+)
+QuestionFormSet = inlineformset_factory(
+    Survey,  # Родительская модель
+    Question,  # Дочерняя модель
+    form=QuestionForm,  # Форма для дочерней модели
+    extra=1,  # Количество дополнительных пустых форм
+    can_delete=True,  # Разрешить удаление вопросов
+)
+

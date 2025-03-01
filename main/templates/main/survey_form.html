@@ -2,13 +2,52 @@
 
 {% block content %}
 <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
-    <h2>{{ title }}</h2>
-    <form method="post">
+    <h2>{{ survey.pk|default:"Создать" }} Опрос</h2>
+
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
+
+        <!-- Форма для Survey -->
         {{ form.as_p }}
+
+        <!-- Форма для Question -->
+        <h3>Вопросы</h3>
+        {{ question_formset.management_form }}
+
+        {% for question_form in question_formset %}
+            <div style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
+                {{ question_form.as_p }}
+
+                {% if question_form.errors %}
+                    <div style="color: red;">{{ question_form.errors }}</div>
+                {% endif %}
+
+                <!-- Форма для Mark -->
+                <h4>Кнопки</h4>
+
+                {% if mark_formsets and mark_formsets|length >= forloop.counter %}
+                    {% with mark_formset=mark_formsets|slice:forloop.counter|first %}
+                        {{ mark_formset.management_form }}
+
+                        {% for mark_form in mark_formset %}
+                            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #eee; border-radius: 5px;">
+                                {{ mark_form.as_p }}
+
+                                {% if mark_form.errors %}
+                                    <div style="color: red;">{{ mark_form.errors }}</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% endwith %}
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <!-- Кнопки -->
         <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
             Сохранить
         </button>
+
         <a href="{% url 'main:index' %}" style="background-color: #f44336; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-left: 10px;">
             Отмена
         </a>
