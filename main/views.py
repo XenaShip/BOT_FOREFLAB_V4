@@ -3,8 +3,8 @@ from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
 
-from .forms import SurveyForm, ClientForm, QuestionForm, MarkFormSet, QuestionFormSet
-from .models import Survey, Client, Question
+from .forms import SurveyForm, ClientForm, QuestionForm, MarkFormSet, QuestionFormSet, MarkForm
+from .models import Survey, Client, Question, Mark
 
 
 class index(generic.ListView):
@@ -166,3 +166,25 @@ class QuestionDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('main:survey_detail_slug', kwargs={'pk': self.object.survey.id})
+
+class MarkListView(ListView):
+    model = Mark
+    template_name = 'main/mark_list.html'
+    context_object_name = 'marks'
+
+class MarkCreateView(CreateView):
+    model = Mark
+    form_class = MarkForm
+    template_name = 'main/create_mark.html'
+    success_url = reverse_lazy('main:mark_list')
+
+class MarkUpdateView(UpdateView):
+    model = Mark
+    form_class = MarkForm
+    template_name = 'main/update_mark.html'
+    success_url = reverse_lazy('main:mark_list')
+
+class MarkDeleteView(DeleteView):
+    model = Mark
+    template_name = 'main/delete_mark.html'
+    success_url = reverse_lazy('main:mark_list')

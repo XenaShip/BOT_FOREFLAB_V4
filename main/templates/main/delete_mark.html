@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 600px; margin: auto; padding: 20px; text-align: center;">
+    <h2>Удалить кнопку</h2>
+    <p>Вы уверены, что хотите удалить кнопку "{{ mark.mark_text }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" style="background-color: #f44336; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Удалить</button>
+        <a href="{% url 'main:mark_list' %}" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Отмена</a>
+    </form>
+</div>
+{% endblock %}

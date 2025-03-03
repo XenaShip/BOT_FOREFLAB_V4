@@ -2,7 +2,8 @@ from django.urls import path
 
 from .apps import MainConfig
 from .views import SurveyDetailView, SurveyCreateView, SurveyUpdateView, SurveyDeleteView, index, ClientListView, \
-    ClientCreateView, ClientUpdateView, ClientDeleteView, QuestionCreateView, QuestionUpdateView, QuestionDeleteView
+    ClientCreateView, ClientUpdateView, ClientDeleteView, QuestionCreateView, QuestionUpdateView, QuestionDeleteView, \
+    MarkListView, MarkUpdateView, MarkCreateView, MarkDeleteView
 from .views import survey_create_or_update
 app_name = MainConfig.name
 
@@ -14,7 +15,10 @@ urlpatterns = [
     path('survey/<int:pk>/edit/', survey_create_or_update, name='survey_form'),
     path('surveys/<int:pk>/delete/', SurveyDeleteView.as_view(), name='survey_confirm_delete'),
     path('surveys/<slug:slug>/', SurveyDetailView.as_view(), name='survey_detail_slug'),
-
+    path('marks/', MarkListView.as_view(), name='mark_list'),
+    path('marks/create/', MarkCreateView.as_view(), name='create_mark'),
+    path('marks/<int:pk>/edit/', MarkUpdateView.as_view(), name='update_mark'),
+    path('marks/<int:pk>/delete/', MarkDeleteView.as_view(), name='delete_mark'),
 
 
     # Вопросы

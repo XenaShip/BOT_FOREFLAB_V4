@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 800px; margin: auto; padding: 20px;">
+    <h2>Список кнопок</h2>
+    <a href="{% url 'main:create_mark' %}" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Добавить кнопку</a>
+    <ul style="list-style: none; padding: 0;">
+        {% for mark in marks %}
+            <li style="margin-top: 10px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+                {{ mark.mark_text }}
+                <a href="{% url 'main:update_mark' mark.pk %}" style="margin-left: 10px;">✏️</a>
+                <a href="{% url 'main:delete_mark' mark.pk %}" style="color: red; margin-left: 10px;">❌</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

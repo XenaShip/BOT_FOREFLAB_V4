@@ -12,7 +12,7 @@
                     <li><a href="{% url 'users:user_list' %}" style="color: #fff; text-decoration: none;">Пользователи</a></li>
                     <li><a href="{% url 'main:client_list' %}" style="color: #fff; text-decoration: none;">Клиенты</a></li>
                     <li><a href="{% url 'main:index' %}" style="color: #fff; text-decoration: none;">Опросы</a></li>
-                    <li>
+                    <li><a href="{% url 'main:mark_list' %}" style="color: #fff; text-decoration: none;">Кнопки</a></li>
                         <form action="{% url 'users:logout' %}" method="post" style="display: inline;">
                             {% csrf_token %}
                             <button type="submit" style="background: none; border: none; color: #fff; cursor: pointer; font-size: 16px;">Выйти</button>

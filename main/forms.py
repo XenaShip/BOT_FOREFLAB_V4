@@ -104,4 +104,7 @@ QuestionFormSet = inlineformset_factory(
     extra=1,  # Количество дополнительных пустых форм
     can_delete=True,  # Разрешить удаление вопросов
 )
-
+class MarkForm(forms.ModelForm):
+    class Meta:
+        model = Mark
+        fields = ['mark_text', 'que']
